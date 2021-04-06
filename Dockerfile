@@ -21,10 +21,13 @@ RUN set -o allexport \
     && tar x -z -f install-tl-unx.tar.gz \
     && ls install-tl-* \
     && cd install-tl-* \
-    && ls \
     && apk add --no-cache perl \
     && perl install-tl --help \
-    && perl install-tl \
+    # Loading http://www.ctan.org/tex-archive/systems/texlive/tlnet/tlpkg/texlive.tlpdb
+    # cannot contact mirror.ctan.org, returning a backbone server!
+    # install-tl: TLPDB::from_file could not initialize from: http://www.ctan.org/tex-archive/systems/texlive/tlnet/tlpkg/texlive.tlpdb
+    # install-tl: Maybe the repository setting should be changed.
+    && perl install-tl -select-repository http://mirrors.ibiblio.org/CTAN/ \
     && tlmgr update --self \
     # install ms does not solve "everyshi.sty not found", trying deprecated old everyshi
     && tlmgr install mdframed needspace zref tcolorbox listings environ translator beamer ms everyshi \
