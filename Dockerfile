@@ -8,6 +8,17 @@ ARG CLEANUP_SCRIPT_LOCATION
 ADD $FIX_ALL_GOTCHAS_SCRIPT_LOCATION .
 ADD $CLEANUP_SCRIPT_LOCATION .
 
+RUN apk --no-cache add \
+      xz \
+      wget \
+      perl \
+      tar \
+      fontconfig-dev && \
+    wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz && \
+    mkdir /tmp/install-tl && \
+    tar -xzf install-tl-unx.tar.gz -C /tmp/install-tl --strip-components=1 && \
+    /tmp/install-tl/install-tl
+
 # We need git to pip install directly from a git repository.
 # We need openssh-client to git clone via SSH
 # (it's more secure to use a deploy key than a password).
