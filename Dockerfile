@@ -14,7 +14,15 @@ ADD $CLEANUP_SCRIPT_LOCATION .
 RUN set -o allexport \
     && . ./fix_all_gotchas.sh \
     && set +o allexport \
-    && apk add --no-cache texlive \
+    # && apk add --no-cache texlive \ # does not install tlmgr
+    && wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+    && ls install-tl-unx.tar.gz \
+    && tar --help \
+    && tar -xzf install-tl-unx.tar.gz \
+    && cd install-tl-unx \
+    && apk add --no-cache perl \
+    && perl install-tl --help \
+    && perl install-tl \
     && tlmgr update --self \
     # install ms does not solve "everyshi.sty not found", trying deprecated old everyshi
     && tlmgr install mdframed needspace zref tcolorbox listings environ translator beamer ms everyshi \
