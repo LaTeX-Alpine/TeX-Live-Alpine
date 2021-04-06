@@ -19,8 +19,9 @@ RUN set -o allexport \
     && ls install-tl-unx.tar.gz \
     && tar --help \
     && tar x -z -f install-tl-unx.tar.gz \
+    && ls install-tl-* \
+    && cd install-tl-* \
     && ls \
-    && cd install-tl-unx \
     && apk add --no-cache perl \
     && perl install-tl --help \
     && perl install-tl \
