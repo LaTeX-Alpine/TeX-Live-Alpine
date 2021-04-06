@@ -18,7 +18,8 @@ RUN set -o allexport \
     && wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
     && ls install-tl-unx.tar.gz \
     && tar --help \
-    && tar -xzf install-tl-unx.tar.gz \
+    && tar x -z -f install-tl-unx.tar.gz \
+    && ls \
     && cd install-tl-unx \
     && apk add --no-cache perl \
     && perl install-tl --help \
